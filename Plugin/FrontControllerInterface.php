@@ -73,7 +73,7 @@ class FrontControllerInterface
         $allowedCurrencies = $this->currency->getConfigAllowCurrencies();
         //$allowedCurrencies = $this->currencyFactory->getConfigAllowCurrencies();
         if (!in_array($currencyCode, $allowedCurrencies)) {
-            return $result;
+            return $this->getDefaultCurrency();
         }
         return $currencyCode;
     }
@@ -106,4 +106,15 @@ class FrontControllerInterface
         }
         return $currencyCode;
     }
+
+    /**
+     * Get the base currency of the current store
+     * @return false|string
+     */
+    public function getDefaultCurrency()
+    {
+        $baseCurrencies = $this->currency->getConfigDefaultCurrencies();
+        return reset($baseCurrencies);
+    }
+
 }
